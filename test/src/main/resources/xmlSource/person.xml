@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<person xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="person.xsd">
+	<name>simon</name>
+	<age>34</age>
+	<house owner="simon">
+		<location>China</location>
+		<price unit="dollar">500</price>
+	</house>
+</person>

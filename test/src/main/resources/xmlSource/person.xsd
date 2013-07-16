@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:element name="person" />
+
+	<xs:simpleType name="name_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="name" type="name_type" />
+
+	<xs:simpleType name="age_type">
+		<xs:restriction base="xs:int">
+			<xs:maxExclusive value="100" />
+			<xs:minInclusive value="0" />
+			<xs:pattern value="3\d" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="age_type_list">
+		<xs:list itemType="age_type" />
+	</xs:simpleType>
+	<xs:element name="age" type="age_type_list" />
+
+	<xs:simpleType name="unit_type">
+		<xs:restriction base="xs:token">
+			<xs:enumeration value="dollar" />
+			<xs:enumeration value="rmb" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="price_type">
+		<xs:simpleContent>
+			<xs:extension base="xs:int">
+				<xs:attribute name="unit" type="unit_type" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:element name="price" type="price_type" />
+	<xs:complexType name="house_type">
+		<xs:sequence>
+			<xs:element name="location" type="xs:string" />
+			<xs:element ref="price" />
+		</xs:sequence>
+		<xs:attribute name="owner" use="required" />
+	</xs:complexType>
+	<xs:element name="house" type="house_type" />
+
+</xs:schema>

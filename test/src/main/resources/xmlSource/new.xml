@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GB2312"?>
+<?crazyit href='http:/www.crazyit.org'?>
+<!--根元素之前的注释-->
+<student 学号="1992121232">
+    <name>张三</name>
+    <age>28</age>
+    <high>1.72</high>
+    <score>
+        <Java>95</Java>
+        <Struts>90</Struts>
+        <Hibernate>90</Hibernate>
+    </score>
+</student>
