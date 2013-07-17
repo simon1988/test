@@ -1,8 +1,10 @@
 package test;
 
-import java.util.*;
-import java.math.BigInteger;
-import java.text.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Test {
 
@@ -32,6 +34,20 @@ public class Test {
 		}
 		double rate=100*count/(12.0*days/365.0);
 		System.out.printf("%d\t%.2f\t%.2f",count,(12.0*days/365.0), rate);
+	}
+	
+	private static void testReflection(){
+		System.out.println(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
+		Field[] fields = CompareResult.class.getDeclaredFields();
+		for(Field field : fields){
+			Class<?> fieldType = field.getType();
+			fieldType.isPrimitive();
+			System.out.println(fieldType.getName());
+			if(fieldType.isAssignableFrom(java.util.List.class)){
+				Type fc = field.getGenericType();
+				System.out.println(fc);
+			}
+		}
 	}
 	/**
 	 * @param args
