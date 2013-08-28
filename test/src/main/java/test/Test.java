@@ -1,13 +1,12 @@
 package test;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Test {
 
+	
 	private static String trim(String src){
 		char c[]=new char[src.length()];
 		int j=0;
@@ -36,25 +35,16 @@ public class Test {
 		System.out.printf("%d\t%.2f\t%.2f",count,(12.0*days/365.0), rate);
 	}
 	
-	private static void testReflection(){
-		System.out.println(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
-		Field[] fields = CompareResult.class.getDeclaredFields();
-		for(Field field : fields){
-			Class<?> fieldType = field.getType();
-			fieldType.isPrimitive();
-			System.out.println(fieldType.getName());
-			if(fieldType.isAssignableFrom(java.util.List.class)){
-				Type fc = field.getGenericType();
-				System.out.println(fc);
-			}
-		}
-	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		System.out.println(trim("abc\tdef  \t'''ddd' f\tgg"));
+		System.out.println(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
+
 		//printSameMonth(2000,13333);
 	}
+
 
 }

@@ -21,6 +21,11 @@ public class ThreadPoolTest implements Runnable {
 		ses.schedule(new ThreadPoolTest("thread 1"), 2, TimeUnit.SECONDS);
 		ses.schedule(new ThreadPoolTest("thread 2"), 4, TimeUnit.SECONDS);
 		ses.scheduleAtFixedRate(new ThreadPoolTest("thread 3"), 0, 1, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		ses.shutdown();
 	}
 
