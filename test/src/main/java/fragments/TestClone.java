@@ -1,12 +1,13 @@
 package fragments;
-import java.math.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TestClone implements Cloneable{
+public class TestClone{
 
 	public int a;
 	
+	@Override
 	public TestClone clone(){
 		TestClone newOne = new TestClone();
 		newOne.a = this.a;
@@ -17,15 +18,15 @@ public class TestClone implements Cloneable{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		double d1=11.1;
-//		double d2=0.2;
-//		
-//		BigDecimal bd1=new BigDecimal(0.1);
-//		BigDecimal bd2=new BigDecimal(0.2);
-//		
-//		System.out.printf("%4.2f\n",d1+d2);
-//		System.out.println(bd1.add(bd2));
+		double d1=11.1;
+		double d2=0.2;
+		
+		BigDecimal bd1=new BigDecimal(0.1);
+		BigDecimal bd2=new BigDecimal(0.2);
+		
+		System.out.printf("%4.2f\n",d1+d2);
+		System.out.println(bd1.add(bd2));
+		
 		ArrayList<TestClone> list =new ArrayList<TestClone>();
 		TestClone a = new TestClone();
 		a.a=1;

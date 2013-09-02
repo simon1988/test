@@ -1,44 +1,67 @@
 package thread;
 
-import java.util.concurrent.*;
-import java.io.*;
-public class SearchKeyword implements Runnable {
+import java.io.File;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-	String path,keyword;
-	ArrayBlockingQueue<File> abq;
-	
-	public SearchKeyword(String path,String keyword){
-		this.path=path;
-		this.keyword=keyword;
-		abq=new ArrayBlockingQueue<File>(10);
-		try{
-			ThreadGroup tg=new ThreadGroup("tg");
-			for(int i=0;i<10;i++)
-				new Thread(tg,this).start();
-			readfile(new File(path));
-			tg.interrupt();
-		}catch(Exception e){
-			e.printStackTrace();
+
+public class SearchKeyword {
+
+	ArrayBlockingQueue<File> abq = new ArrayBlockingQueue<File>(10);
+
+	public void find(String path, String keyword) {
+		ExecutorService es = Executors.newFixedThreadPool(10);
+		for (int i = 0; i < 10; i++) {
+			es.execute(new ProcessFileTask(keyword));
 		}
-	}
-	
-	public void readfile(File root)throws Exception{
-		for(File file:root.listFiles()){
-			if(file.isDirectory())readfile(file);
-			abq.put(file);
-		}
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		try{
-			while(true){
-				File file=abq.take();
-				if(file.getName().toLowerCase().contains(keyword))
-					System.out.println(file.getAbsolutePath());
+		es.shutdown();
+		readfile(new File(path));
+		for (int i = 0; i < 10; i++) {
+			try {
+				abq.put(new File(""));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		}catch(Exception e){
-			//this thread stops
+		}
+	}
+
+	public void readfile(File root) {
+		for (File file : root.listFiles()) {
+			if (file.isDirectory())
+				readfile(file);
+			try {
+				abq.put(file);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private class ProcessFileTask implements Runnable {
+		private String keyword;
+		
+		public ProcessFileTask(String keyword){
+			this.keyword = keyword;
+		}
+		
+		@Override
+		public void run() {
+			while (true) {
+				File file = null;
+				try {
+					file = abq.take();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				//poison
+				if(file.getName()==""){
+					break;
+				}
+				if (file.getName().toLowerCase().contains(keyword)) {
+					System.out.println(file.getAbsolutePath());
+				}
+			}
 		}
 	}
 
@@ -46,11 +69,6 @@ public class SearchKeyword implements Runnable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		/*java.util.Scanner scanner=new java.util.Scanner(System.in);
-		String path=scanner.nextLine();
-		String keyword=scanner.nextLine();
-		new SearchKeyword(path,keyword);*/
-		new SearchKeyword("C:/Program Files/Java/jdk1.6.0_02/src/java/util/","list");
+		new SearchKeyword().find("C:\\test\\exttest", "java");
 	}
 }

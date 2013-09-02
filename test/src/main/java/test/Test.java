@@ -42,7 +42,8 @@ public class Test {
 	public static void main(String[] args) {
 		System.out.println(trim("abc\tdef  \t'''ddd' f\tgg"));
 		System.out.println(new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date()));
-
+		String a = "hello";
+		System.out.println(a=="hello");
 		//printSameMonth(2000,13333);
 	}
 

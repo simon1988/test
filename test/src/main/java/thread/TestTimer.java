@@ -14,7 +14,6 @@ public class TestTimer {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				System.out.println("I am the best!");
 				if(random.nextInt(100)==99)timer.cancel();
 			}
@@ -25,8 +24,6 @@ public class TestTimer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
 		TestTimer tt=new TestTimer();
 		tt.dothis();
 	}
