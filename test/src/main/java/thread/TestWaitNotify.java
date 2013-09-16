@@ -10,7 +10,7 @@ class Test0 {
 	synchronized public void A() {
 		try {
 			while (i % 2 == 1)
-				wait();
+				this.wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -38,7 +38,7 @@ class Test0 {
 		}
 		System.out.println("BA" + i++);
 		try {
-			TimeUnit.SECONDS.sleep(5);
+			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
