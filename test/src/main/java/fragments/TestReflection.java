@@ -1,9 +1,9 @@
 package fragments;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class TestReflection {
 	private String hello;
@@ -16,13 +16,27 @@ public class TestReflection {
 		this.hello = hello;
 	}
 	
-	private static void testReflection(){
+	private void testReflection(){
+
 		
-		TestReflection test = new TestReflection();
-		test.setHello("hello!");
 		try {
-			Field hello = test.getClass().getDeclaredField("hello");
-			System.out.println(hello.get(test));
+			Method method = this.getClass().getDeclaredMethod("setHello", String.class);
+			method.invoke(this, "hello");
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			Field hello = this.getClass().getDeclaredField("hello");
+			System.out.println(hello.get(this));
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -46,7 +60,8 @@ public class TestReflection {
 	}
 	
 	public static void main(String[] args) {
-		testReflection();
+		TestReflection instance = new TestReflection();
+		instance.testReflection();
 	}
 
 }
