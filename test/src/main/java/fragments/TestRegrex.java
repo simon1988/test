@@ -31,7 +31,7 @@ public class TestRegrex {
 	public static void main(String[] args) {
 		TestRegrex ts=new TestRegrex();
 		
-		//ts.test1();
+		ts.test1();
 		
 		String s="a // b6     c33";
 		//find
