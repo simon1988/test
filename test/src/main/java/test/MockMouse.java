@@ -12,7 +12,7 @@ public class MockMouse {
 			Thread.sleep(5000);
 			final Robot rb = new Robot();
 			while (true)
-				pressMouse(rb, InputEvent.BUTTON1_MASK, 2000);
+				pressMouse(rb, InputEvent.BUTTON1_MASK, 3000);
 //			int[] ks = new int[] { KeyEvent.VK_E, KeyEvent.VK_X, KeyEvent.VK_I, KeyEvent.VK_T, KeyEvent.VK_ENTER };
 //			pressKeys(rb, ks, 500);
 		} catch (AWTException e) {
