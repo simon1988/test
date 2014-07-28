@@ -1,9 +1,9 @@
-package tek.interview;
+package tek;
 
 import java.math.BigInteger;
 import java.util.TreeSet;
 
-public class Solutions {
+public class UberalInterview {
 
 	public static void main(String args[]){
 		System.out.println("question #1:");
