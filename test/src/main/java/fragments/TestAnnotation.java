@@ -1,6 +1,9 @@
 package fragments;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 
 @Target(ElementType.METHOD)
@@ -22,11 +25,7 @@ class Model{
 }
 public class TestAnnotation {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		for(Method m : Model.class.getDeclaredMethods()){
 			System.out.println(m.getAnnotation(UseCase.class));
 		}

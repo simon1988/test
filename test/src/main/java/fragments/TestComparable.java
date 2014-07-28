@@ -9,7 +9,6 @@ public class TestComparable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		TestExtends1 te1 = new TestExtends2(1);
 		if(TestExtends2.class.isInstance(te1)){
 			System.out.println(te1.value);
@@ -32,7 +31,6 @@ class TestExtends1 implements Comparable<TestExtends1>{
 	}
 	@Override
 	public int compareTo(TestExtends1 o) {
-		// TODO Auto-generated method stub
 		return o.value-this.value;
 	}
 }

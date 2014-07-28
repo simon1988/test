@@ -1,11 +1,20 @@
 package fragments;
-import java.util.regex.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TestRegrex {
 
 	public void test1(){
-		String s=String.format("%9s!", "abc");
-		System.out.println(s);
+		String line = "This order was placed for QT3000! OK?";
+		Pattern pattern = Pattern.compile("(.*?)(\\d+)(.*)");
+		Matcher matcher = pattern.matcher(line);
+		while (matcher.find()) {
+		    System.out.println("group 0: " + matcher.group());
+		    System.out.println("group 1: " + matcher.group(1));
+		    System.out.println("group 2: " + matcher.group(2));
+		    System.out.println("group 3: " + matcher.group(3));
+		}
 	}
 	
 	public void test2(String pattern, String str){
@@ -25,13 +34,11 @@ public class TestRegrex {
 		Matcher matcher=Pattern.compile(pattern).matcher(str);
 		System.out.println(matcher.replaceAll("$2$1"));
 	}
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		TestRegrex ts=new TestRegrex();
 		
-		//ts.test1();
+		ts.test1();
 		
 		String s="a // b6     c33";
 		//find

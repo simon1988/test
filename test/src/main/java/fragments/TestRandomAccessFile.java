@@ -1,5 +1,7 @@
 package fragments;
-import java.io.*;
+
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.channels.FileChannel;
@@ -59,18 +61,12 @@ public class TestRandomAccessFile {
 			System.out.println();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * @author Simon.Niu
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		readWrite2();
 
+	public static void main(String[] args) {
+		readWrite2();
 	}
 
 }

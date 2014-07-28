@@ -33,7 +33,6 @@ public class TestFile {
 
 				@Override
 				public boolean accept(File dir, String name) {
-					// TODO Auto-generated method stub
 					return name.charAt(0) != '.';
 				}
 			})) {
@@ -44,10 +43,7 @@ public class TestFile {
 			e.printStackTrace();
 		}
 
-		//listFile(".", 0);
-		File tryCreate = new File("xxx/xxx");
-		if(tryCreate.exists());
-		if(!tryCreate.mkdirs())System.out.println("zhu");
+		listFile(".", 0);
 	}
 
 }

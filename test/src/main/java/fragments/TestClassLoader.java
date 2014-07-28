@@ -1,7 +1,8 @@
 package fragments;
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.*;
 
 class tcl extends ClassLoader{
 	public Class<?> findClass(String name)
@@ -11,7 +12,6 @@ class tcl extends ClassLoader{
 			data = loadClassData(name);
 			
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return defineClass("test.Test", data, 0, data.length);
@@ -32,11 +32,7 @@ class tcl extends ClassLoader{
 }
 public class TestClassLoader {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try{
 			tcl tc = new tcl();
 			Class<?> c=tc.loadClass("whatever");

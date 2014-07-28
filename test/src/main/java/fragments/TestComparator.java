@@ -1,5 +1,9 @@
 package fragments;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class TestComparator {
 	public static void main(String args[]){
 		ArrayList<DoubleString> list=new ArrayList<DoubleString>();
