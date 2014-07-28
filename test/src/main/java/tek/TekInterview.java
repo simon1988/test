@@ -1,12 +1,9 @@
-package tek.interview;
+package tek;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 
-public class Test2 {
+public class TekInterview {
 
 	static int func1(int n) {
 		if (n <= 1)
@@ -124,10 +121,6 @@ public class Test2 {
 		System.out.println("Func2 result is " + visible(T));
 	}
 
-	/**
-	 * @author Simon.Niu
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		int A[] = { 1, 1, 1 };
@@ -137,7 +130,7 @@ public class Test2 {
 		// System.out.println("Func2 result is "+func2("abcavcba"));
 
 		// System.out.println("Func1 result is " + func3(2, A));
-		Test2 t = new Test2();
+		TekInterview t = new TekInterview();
 		t.func5();
 
 	}
