@@ -1,4 +1,4 @@
-package test;
+package algorithm;
 
 //File: Mergesort.java
 //A Java application to illustrate the use of a merge sort
