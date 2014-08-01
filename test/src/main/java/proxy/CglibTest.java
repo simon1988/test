@@ -1,12 +1,11 @@
 package proxy;
 
 import java.lang.reflect.Method;
+
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import org.junit.Test;
-import static org.junit.Assert.*;
  
 /**
  *
@@ -32,7 +31,6 @@ public class CglibTest {
         }
     }
  
-    @Test
     public void testEnhance() {
  
         Enhancer enhancer = new Enhancer();
@@ -45,9 +43,7 @@ public class CglibTest {
  
         String doSomething = created.doSomething();
  
-        assertEquals("I did nothing", doSomething);
- 
- 
+        System.out.println(doSomething);
  
     }
 }
