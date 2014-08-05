@@ -65,9 +65,6 @@ public class SearchKeyword {
 		}
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		new SearchKeyword().find("C:\\test\\exttest", "java");
 	}
