@@ -6,11 +6,7 @@ import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
- 
-/**
- *
- * @author shaman
- */
+
 public class CglibTest {
  
     public abstract static class Foo {
@@ -31,13 +27,11 @@ public class CglibTest {
         }
     }
  
-    public void testEnhance() {
- 
-        Enhancer enhancer = new Enhancer();
+    public static void main(String args[]) {
  
         Callback callback = new MethodInterceptorImpl();
  
-        Foo created = (Foo) enhancer.create(Foo.class, callback);
+        Foo created = (Foo) Enhancer.create(Foo.class, callback);
         
         System.out.println(created.getClass());
  
