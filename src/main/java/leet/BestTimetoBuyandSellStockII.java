@@ -13,13 +13,21 @@ package leet;
 
 public class BestTimetoBuyandSellStockII {
 	public int maxProfit(int[] prices) {
-		int profit = 0;
-		for (int i = 1; i < prices.length; i++) {
-			int d = prices[i] - prices[i - 1];
-			if (d > 0) {
-				profit += d;
+		int last = prices[0];
+		int maxProfit = 0;
+		for(int price:prices){
+			if(price>last){
+				maxProfit=maxProfit+price-last;
 			}
+
+			last=price;
 		}
-		return profit;
+		return maxProfit;
+	}
+	
+	public static void main(String args[]){
+		BestTimetoBuyandSellStockII instance = new BestTimetoBuyandSellStockII();
+		int[] prices = {1,-7,0,6,-8,4,-9,5};
+		LeetUtil.print(39, instance.maxProfit(prices));
 	}
 }

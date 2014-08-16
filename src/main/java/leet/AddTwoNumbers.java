@@ -12,39 +12,32 @@ package leet;
  */
 
 public class AddTwoNumbers {
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-		if (l1 == null)
-			return l2;
-		if (l2 == null)
-			return l1;
-		ListNode head = new ListNode(0);
-		ListNode cur = head;
-		int plus = 0;
-		while (l1 != null && l2 != null) {
-			int sum = l1.val + l2.val + plus;
-			plus = sum / 10;
-			sum = sum % 10;
-			cur.next = new ListNode(sum);
-			cur = cur.next;
-			l1 = l1.next;
-			l2 = l2.next;
-		}
-		if (l1 != null) {
-			if (plus != 0) {
-				cur.next = addTwoNumbers(l1, new ListNode(plus));
-			} else {
-				cur.next = l1;
-			}
-		} else if (l2 != null) {
-			if (plus != 0) {
-				cur.next = addTwoNumbers(l2, new ListNode(plus));
-			} else {
-				cur.next = l2;
-			}
-		} else if (plus != 0) {
-			cur.next = new ListNode(plus);
-		}
-
-		return head.next;
-	}
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = null;
+        ListNode prev = null;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int i1 = l1 == null ? 0 : l1.val;
+            int i2 = l2 == null ? 0 : l2.val;
+            int sum = i1 + i2 + carry;
+            ListNode node = new ListNode(sum % 10);
+            carry = sum / 10;
+            if (prev == null) {
+                head = prev = node;
+            } else {
+                prev.next = node;
+                prev = node;
+            }
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+        }
+        if (carry > 0) {
+            prev.next = new ListNode(carry);
+        }
+        return head;
+    }
 }

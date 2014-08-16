@@ -11,17 +11,18 @@ package leet;
  */
 public class BestTimetoBuyandSellStock {
 	public int maxProfit(int[] prices) {
-		int lowest = 0;
+		int min = prices[0];
 		int maxProfit = 0;
-		if (prices.length > 0) {
-			lowest = prices[0];
-			for (int i = 0; i < prices.length; i++) {
-				if (lowest > prices[i]) {
-					lowest = prices[i];
-				}
-				maxProfit = Math.max(maxProfit, prices[i] - lowest);
-			}
+		for(int price:prices){
+			min=price<min?price:min;
+			maxProfit=Math.max(maxProfit, price-min);
 		}
 		return maxProfit;
+	}
+	
+	public static void main(String args[]){
+		BestTimetoBuyandSellStock instance = new BestTimetoBuyandSellStock();
+		int[] prices = {1,-7,0,6,-8,4,-9,5};
+		LeetUtil.print(14, instance.maxProfit(prices));
 	}
 }

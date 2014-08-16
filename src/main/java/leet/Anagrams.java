@@ -3,43 +3,44 @@ package leet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Given an array of strings, return all groups of strings that are anagrams.
  * 
  * Note: All inputs will be in lower-case.
+ * 
+ * For example:
+ * Input:　　["tea","and","ate","eat","den"]
+ * Output:   ["tea","ate","eat"]
  */
 
 public class Anagrams {
-	public ArrayList<String> anagrams(String[] strs) {
-		ArrayList<String> ret = new ArrayList<String>();
-		ArrayList<String> ar = new ArrayList<String>();
-		for (String s : strs) {
-			char[] c = s.toCharArray();
+	public ArrayList<List<String>> anagrams(String[] strs) {
+		ArrayList<List<String>> result = new ArrayList<List<String>>();
+		HashMap<String,List<String>> map = new HashMap<String,List<String>>();
+		for(String s:strs){
+			char c[]=s.toCharArray();
 			Arrays.sort(c);
-			ar.add(new String(c));
+			String anagram = new String(c);
+			if(!map.containsKey(anagram)){
+				map.put(anagram, new ArrayList<String>());
+			}
+			map.get(anagram).add(s);
 		}
-		int[] list = new int[strs.length];
-		int tmp = 0;
-		for (int i = 0; i < ar.size(); i++) {
-			if (list[i] == 0) {
-				list[i] = 1;
-				tmp = 1;
-				for (int j = i + 1; j < ar.size(); j++) {
-					if (list[j] == 0 && ar.get(i).equals(ar.get(j))) {
-						list[j] = 1;
-						tmp++;
-					}
-				}
-				if (tmp == 1) {
-					list[i] = 0;
-				}
+		for(Map.Entry<String, List<String>> entry : map.entrySet()){
+			if(entry.getValue().size()>1){
+				result.add(entry.getValue());
 			}
 		}
-		for (int i = 0; i < list.length; i++) {
-			if (list[i] == 1)
-				ret.add(strs[i]);
-		}
-		return ret;
+		return result;
+	}
+	
+	public static void main(String args[]){
+		Anagrams instance = new Anagrams();
+		String[] strs = {"tea","and","ate","eat","den"};
+		LeetUtil.print("[tea,ate,eat]", instance.anagrams(strs).toString());
 	}
 }

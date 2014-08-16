@@ -14,37 +14,24 @@ package leet;
 
 public class BestTimetoBuyandSellStockIII {
 	public int maxProfit(int[] prices) {
-		int length = prices.length;
-		if (length == 0) return 0;
-		int profit = 0;
-		int lowest = prices[0];
-		int[] left = new int[length];
-		int[] right = new int[length];
-		for (int i = 1; i < length; i++) {
-			if (prices[i] < lowest) {
-				lowest = prices[i];
-			} else if (prices[i] - lowest > profit) {
-				profit = prices[i] - lowest;
-			}
-			left[i] = profit;
-		}
-		profit = 0;
-		int topest = prices[length - 1];
-		for (int j = length - 2; j >= 0; j--) {
-			if (prices[j] > topest) {
-				topest = prices[j];
-			} else if (topest - prices[j] > profit) {
-				profit = topest - prices[j];
-			}
-			right[length - 1 - j] = profit;
-		}
-		profit = 0;
-		for (int k = 0; k < length; k++) {
-			int p = left[k] + right[length - 1 - k];
-			if (p > profit) {
-				profit = p;
+		int min = prices[0];
+		int maxProfit = 0;
+		int secondMaxProfit = 0;
+		for(int price:prices){
+			min=price<min?price:min;
+			if(maxProfit>price-min){
+				secondMaxProfit=Math.max(secondMaxProfit, price-min);
+			}else{
+				secondMaxProfit = maxProfit;
+				maxProfit= price-min;
 			}
 		}
-		return profit;
+		return maxProfit+secondMaxProfit;
+	}
+	
+	public static void main(String args[]){
+		BestTimetoBuyandSellStockIII instance = new BestTimetoBuyandSellStockIII();
+		int[] prices = {1,-7,0,6,-8,4,-9,5};
+		LeetUtil.print(27, instance.maxProfit(prices));
 	}
 }
