@@ -14,29 +14,26 @@ package leet;
  */
 
 public class CountandSay {
-	public String countAndSay(int n) {
-		StringBuilder s1 = new StringBuilder("1");
-		StringBuilder s2 = new StringBuilder();
-		for (int i = 1; i < n; i++) {
-			int j = 0;
-			int len = s1.length();
-			while (j < len) {
-				int count = 1;
-				char c = s1.charAt(j);
-				while (j < len - 1 && s1.charAt(j + 1) == s1.charAt(j)) {
-					count++;
-					j++;
-				}
-				s2.append(count + "");
-				s2.append(c);
-				if (j == len - 1) {
-					break;
-				}
-				j++;
-			}
-			s1 = s2;
-			s2 = new StringBuilder();
-		}
-		return s1.toString();
-	}
+    public String countAndSay(int n) {
+        String ans = "1";
+        n--;
+        while (n > 0) {
+            n--;
+            StringBuilder builder = new StringBuilder();
+            int count = 1;
+            for (int i = 1; i < ans.length(); i++) {
+                if (ans.charAt(i - 1) == ans.charAt(i)) {
+                    count++;
+                } else {
+                    builder.append(count);
+                    builder.append(ans.charAt(i - 1));
+                    count = 1;
+                }
+            }
+            builder.append(count);
+            builder.append(ans.charAt(ans.length() - 1));
+            ans = builder.toString();
+        }
+        return ans;
+    }
 }
