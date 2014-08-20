@@ -27,20 +27,21 @@ package leet;
  */
 
 public class FlattenBinaryTreetoLinkedList {
+	private TreeNode pre;
 	public void flatten(TreeNode root) {
-        if (root == null) return;
-        if (root.left != null) {
-            TreeNode rightMost = findRightMost(root.left);
-            TreeNode rightChild = root.right;
-            root.right = root.left;
-            root.left = null;
-            rightMost.right = rightChild;
-        }
-        flatten(root.right);
-    }
-    
-    private TreeNode findRightMost(TreeNode root) {
-        if (root == null || root.right == null) return root;
-        return findRightMost(root.right);
-    }
+	    helper(root);
+	}
+	private void helper(TreeNode root)
+	{
+	    if(root == null)
+	        return;
+	    if(pre!=null)
+	    {
+	        pre.left = null;
+	        pre.right = root;
+	    }
+	    pre = root;
+	    helper(root.left);
+	    helper(root.right);
+	}
 }

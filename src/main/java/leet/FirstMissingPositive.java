@@ -11,23 +11,31 @@ package leet;
 
 public class FirstMissingPositive {
 	public int firstMissingPositive(int[] A) {
-		if (A.length == 0)
-			return 1;
-		for (int i = 0; i < A.length; i++) {
-			if (A[i] > 0 && A[i] - 1 < A.length && A[i] - 1 != i
-					&& A[i] != A[A[i] - 1]) {
-				int t = A[A[i] - 1];
-				A[A[i] - 1] = A[i];
-				A[i] = t;
-				i--;
-			}
-		}
-
-		for (int j = 0; j < A.length; j++) {
-			if (A[j] - 1 != j) {
-				return j + 1;
-			}
-		}
-		return A.length + 1;
+	    if(A==null || A.length==0)
+	    {
+	        return 1;
+	    }
+	    for(int i=0;i<A.length;i++)
+	    {
+	        if(A[i]<=A.length && A[i]>0 && A[A[i]-1]!=A[i])
+	        {
+	            int temp = A[A[i]-1];
+	            A[A[i]-1] = A[i];
+	            A[i] = temp;
+	            i--;
+	        }
+	    }
+	    for(int i=0;i<A.length;i++)
+	    {
+	        if(A[i]!=i+1)
+	            return i+1;
+	    }
+	    return A.length+1;
+	}
+	
+	public static void main(String args[]){
+		FirstMissingPositive instance = new FirstMissingPositive();
+		int[] prices = {5,4,3,2,5,1};
+		LeetUtil.print(6, instance.firstMissingPositive(prices));
 	}
 }
