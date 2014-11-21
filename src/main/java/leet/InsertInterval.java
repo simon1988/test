@@ -14,44 +14,36 @@ package leet;
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class InsertInterval {
-	public class IntervalCmp implements Comparator<Interval> {
-
-		@Override
-		public int compare(Interval i1, Interval i2) {
-			if (i1.start < i2.start) {
-				return -1;
-			}
-			if (i1.start == i2.start && i1.end <= i2.end) {
-				return -1;
-			}
-			return 1;
-		}
-
-	}
 
 	public ArrayList<Interval> insert(ArrayList<Interval> intervals,
 			Interval newInterval) {
-		intervals.add(newInterval);
-		Interval[] arr = new Interval[intervals.size()];
-		intervals.toArray(arr);
-		Arrays.sort(arr, new IntervalCmp());
-		intervals.clear();
-		int start = arr[0].start;
-		int end = arr[0].end;
-		for (int i = 1; i < arr.length; i++) {
-			if (arr[i].start <= end) {
-				end = Math.max(end, arr[i].end);
-			} else {
-				intervals.add(new Interval(start, end));
-				start = arr[i].start;
-				end = arr[i].end;
-			}
-		}
-		intervals.add(new Interval(start, end));
-		return intervals;
+	    ArrayList<Interval> res = new ArrayList<Interval>();  
+	    if(intervals.size()==0)  
+	    {  
+	        res.add(newInterval);  
+	        return res;  
+	    }  
+	    int i=0;  
+	    while(i<intervals.size() && intervals.get(i).end<newInterval.start)  
+	    {  
+	        res.add(intervals.get(i));  
+	        i++;  
+	    }  
+	    if(i<intervals.size())  
+	        newInterval.start = Math.min(newInterval.start, intervals.get(i).start);  
+	    res.add(newInterval);  
+	    while(i<intervals.size() && intervals.get(i).start<=newInterval.end)  
+	    {  
+	        newInterval.end = Math.max(newInterval.end, intervals.get(i).end);  
+	        i++;  
+	    }  
+	    while(i<intervals.size())  
+	    {  
+	        res.add(intervals.get(i));  
+	        i++;  
+	    }  
+	    return res; 
 	}
 }

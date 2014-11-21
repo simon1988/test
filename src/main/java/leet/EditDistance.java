@@ -14,24 +14,26 @@ public class EditDistance {
 	public int minDistance(String word1, String word2) {
 		if (word1.length() == 0 || word2.length() == 0)
 			return word1.length() == 0 ? word2.length() : word1.length();
-		int[][] arr = new int[word2.length() + 1][word1.length() + 1];
+		int[][] dp = new int[word2.length() + 1][word1.length() + 1];
 		for (int i = 0; i <= word1.length(); i++) {
-			arr[0][i] = i;
+			dp[0][i] = i;
 		}
 		for (int j = 0; j <= word2.length(); j++) {
-			arr[j][0] = j;
+			dp[j][0] = j;
 		}
 		for (int i = 0; i < word1.length(); i++) {
 			for (int j = 0; j < word2.length(); j++) {
 				if (word1.charAt(i) == word2.charAt(j)) {
-					arr[j + 1][i + 1] = arr[j][i];
+					dp[j + 1][i + 1] = dp[j][i];
 				} else {
-					int dis = Math.min(arr[j][i + 1], arr[j + 1][i]);
-					arr[j + 1][i + 1] = Math.min(arr[j][i], dis) + 1;
+                    int replace=1+dp[i-1][j-1];  
+                    int insert=1+dp[i][j-1];  
+                    int delete=1+dp[i-1][j];  
+                    dp[i][j]=Math.min((Math.min(replace, insert)), delete);
 				}
 			}
 		}
-		return arr[word2.length()][word1.length()];
+		return dp[word2.length()][word1.length()];
 	}
 	
 	public static void main (String[] args) {
