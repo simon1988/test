@@ -2,15 +2,28 @@ package algorithm;
 
 public class LongestCommonSubsequence {
 	public static void main(String[] args) {
-		String x = "abcdefg";
+		String x = "acdefg";
 		String y = "waceg";
 		int M = x.length();
 		int N = y.length();
 
 		// opt[i][j] = length of LCS of x[i..M] and y[j..N]
 		int[][] opt = new int[M + 1][N + 1];
+		int max = 0;
 
-		// compute length of LCS and all subproblems via dynamic programming
+		// compute length of Longest common substring
+		for (int i = M - 1; i >= 0; i--) {
+			for (int j = N - 1; j >= 0; j--) {
+				if (x.charAt(i) == y.charAt(j))
+					opt[i][j] = opt[i + 1][j + 1] + 1;
+				else
+					opt[i][j] = 0;
+				if(opt[i][j]>max)max=opt[i][j];
+			}
+		}
+		System.out.println(max);
+
+		// compute length of Longest common subsequence
 		for (int i = M - 1; i >= 0; i--) {
 			for (int j = N - 1; j >= 0; j--) {
 				if (x.charAt(i) == y.charAt(j))
