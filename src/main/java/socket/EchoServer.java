@@ -17,51 +17,52 @@ public class EchoServer {
 		Socket clientSocket = null;
 		System.out.println("Waiting for connection.....");
 
-		while(true){
-		try {
-			clientSocket = serverSocket.accept();
-			EchoServerThread est=new EchoServerThread(clientSocket);
-			new Thread(est).start();
-		} catch (IOException e) {
-			System.err.println("Accept failed.");
-			System.exit(1);
+		while (true) {
+			try {
+				clientSocket = serverSocket.accept();
+				EchoServerThread est = new EchoServerThread(clientSocket);
+				new Thread(est).start();
+			} catch (IOException e) {
+				System.err.println("Accept failed.");
+				serverSocket.close();
+				System.exit(1);
+			}
 		}
-		}
-		
-		//serverSocket.close();
 	}
-
 
 }
-class EchoServerThread implements Runnable{
+
+class EchoServerThread implements Runnable {
 	private Socket clientSocket = null;
-	public EchoServerThread(Socket socket){
-		this.clientSocket=socket;
+
+	public EchoServerThread(Socket socket) {
+		this.clientSocket = socket;
 	}
+
 	@Override
 	public void run() {
 		System.out.println("Connection successful");
 		System.out.println("Waiting for input.....");
-try{
-		PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-		BufferedReader in = new BufferedReader(new InputStreamReader(
-				clientSocket.getInputStream()));
+		try {
+			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
+					true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					clientSocket.getInputStream()));
 
-		String inputLine;
+			String inputLine;
 
-		while ((inputLine = in.readLine()) != null) {
-			System.out.println("from client: " + inputLine);
-			out.println(inputLine+"!");
+			while ((inputLine = in.readLine()) != null) {
+				System.out.println("from client: " + inputLine);
+				out.println(inputLine + "!");
 
-//			if (inputLine.equals(""))
-//				break;
+				if (inputLine.equals(""))break;
+			}
+
+			out.close();
+			in.close();
+			clientSocket.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		out.close();
-		in.close();
-		clientSocket.close();
-}catch(Exception e){
-	e.printStackTrace();
-}
 	}
 }

@@ -18,7 +18,6 @@ public class EchoClient {
 		BufferedReader in = null;
 
 		try {
-			// echoSocket = new Socket("taranis", 7);
 			echoSocket = new Socket(serverHostname, 8888);
 			out = new PrintWriter(echoSocket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(echoSocket
