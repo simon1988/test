@@ -1,17 +1,16 @@
-package db.mysql;
-import java.sql.*;
+package fragments;
 
-public class QueryDatabase {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-	/**
-	 * @author Simon.Niu
-	 * @param args
-	 */
+public class TestJDBC {
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try{
 			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test?characterEncoding=GBK",BuildDatabase.MYSQL_USER,BuildDatabase.MYSQL_PASSWD);
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test?characterEncoding=GBK","USERNAME","PASSWD");
 			PreparedStatement ps =con.prepareStatement("select * from dics limit 10");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
@@ -22,10 +21,8 @@ public class QueryDatabase {
 		}catch(SQLException e){
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 }
