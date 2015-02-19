@@ -1,4 +1,4 @@
-package tek;
+package algorithm;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

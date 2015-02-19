@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="GB2312"?>
-<!ELEMENT computer_book ((book_name | book_price)*)>
-<!ELEMENT book_price (#PCDATA)>
-<!ATTLIST book_price unit (dollar | rmb) #REQUIRED>
-<!ELEMENT book_name (#PCDATA)>
-<!ELEMENT bookList ((computer_book))>
