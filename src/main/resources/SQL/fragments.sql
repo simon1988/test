@@ -2,8 +2,8 @@
 select * from test t
 where t.HOBBY = 'basketball'
 and exists (select 1 from test t1 where t.name=t1.name and t1.HOBBY  = 'badminton');
-select t1.name from (select * from t where t.HOBBY = 'basketball') t1 inner join (select * from t where t.HOBBY = 'basketball') t2 on t1.name=t2.name
-
+select t1.name from (select * from t where t.HOBBY = 'basketball') t1 inner join (select * from t where t.HOBBY = 'basketball') t2 on t1.name=t2.name;
+select extract(minute from t.update_time-t.insert_time) from tb_silver_account;
 --get table column number
 select table_name, column_name, column_id from user_tab_columns t where t.TABLE_NAME='IUCSCALL_MPR7_15_USER'
 
@@ -18,7 +18,7 @@ connect by column_id=rownum;
 select listagg(COLUMN_NAME, ',') within group (order by column_id) columns from user_tab_cols t where t.TABLE_NAME='EMP'
 
 --flashback
-Flashback database to timestamp to_timestamp('09-10-14 14:37:05','yy-mm-dd hh24:mi:ss');
+Flashback database to timestamp to_timestamp('2009-10-15 19:04:16','YYYY-MM-DD hh24:mi:ss');
 drop table a;
 flashback table a to before drop rename to B;
 delete from A;
