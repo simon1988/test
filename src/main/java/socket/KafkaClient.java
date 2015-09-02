@@ -7,7 +7,7 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 public class KafkaClient {
-	private static final String TOPIC = "gjs_q";
+	private static final String TOPIC = "gjs_trade";
 	private static final KafkaClient instance = new KafkaClient();
 	private final Producer<String, String> producer;
 
@@ -31,6 +31,7 @@ public class KafkaClient {
 	}
 
 	public static void main(String[] args) {
-		getInstance().sendMessage("dtt2");
+		String msg = "{\"bankCardNo\":\"666614709632580745\",\"createTime\":1440487606000,\"currencyType\":\"00\",\"firmId\":\"16380494\",\"localOrderId\":\"150817001016\",\"notifyStatus\":0,\"orderId\":\"2015081716JY06306434\",\"orderMoney\":\"632.00\",\"orderMoneyCent\":63200,\"orderType\":\"deposit\",\"orderTypeDisplay\":\"1\",\"partnerId\":\"njs\",\"realTradeMoney\":\"632.00\",\"realTradeMoneyCent\":63200,\"realTradeTime\":1439799998000,\"reconStatus\":0,\"status\":2,\"updateTime\":1439823600000,\"userName\":\"fsx379@163.com\"}";
+		getInstance().sendMessage(msg);
 	}
 }

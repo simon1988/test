@@ -21,6 +21,7 @@ public class TestReflection {
 		
 		try {
 			Method method = this.getClass().getDeclaredMethod("setHello", String.class);
+			System.out.println(method.getParameterTypes()[0]==String.class);
 			method.invoke(this, "hello");
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();

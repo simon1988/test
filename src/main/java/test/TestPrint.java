@@ -1,12 +1,10 @@
 package test;
 
-import java.util.HashMap;
-
+import java.util.Date;
 
 public class TestPrint {
 
 	public static void main(String[] args) {
-		HashMap<String, String> map;
-		System.out.println();
+		System.out.println(new Date(1439808379417l));
 	}
 }

@@ -13,12 +13,12 @@ import kafka.serializer.StringDecoder;
 import kafka.utils.VerifiableProperties;
 
 public class KafkaServer {
-	private static final String TOPIC = "gjs_q";
+	private static final String TOPIC = "gjs_trade";
 
 	public static void start() {
 		Properties props = new Properties();
 		props.put("zookeeper.connect", "223.252.197.84:2182");
-		props.put("group.id", "gjs_consumer_group");
+		props.put("group.id", "gjs_consumer_group1");
 		props.put("zookeeper.session.timeout.ms", "4000");
 		props.put("zookeeper.sync.time.ms", "200");
 		props.put("auto.commit.interval.ms", "1000");
