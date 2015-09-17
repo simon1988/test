@@ -53,6 +53,7 @@ class EchoServerThread implements Runnable {
 
 			while ((inputLine = in.readLine()) != null) {
 				System.out.println("from client: " + inputLine);
+				Thread.sleep(3000);
 				out.println(inputLine + "!");
 
 				if (inputLine.equals(""))break;
