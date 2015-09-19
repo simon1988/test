@@ -3,6 +3,9 @@ package fragments;
 public class TestOverride {
 
 	public static void callAB(A a) {
+		if(a instanceof B){
+			callAB((B)a);
+		}
 		System.out.println("Call A");
 	}
 
@@ -14,7 +17,6 @@ public class TestOverride {
 		A a = new B();
 		a.f();
 		callAB(a);
-
 	}
 
 }
@@ -27,14 +29,6 @@ class A {
 
 class B extends A {
 	public void f() {
-		System.out.println("F in B" + InnerB.i);
-	}
-
-	void f(int i) {
-		System.out.println("F(i) in B");
-	}
-
-	static class InnerB {
-		private static int i = 0;
+		System.out.println("F in B");
 	}
 }
