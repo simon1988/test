@@ -4,8 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-class JobClass {
-	
+public class WaitNotify {
+
 	private int i = 0;
 
 	synchronized public void A() throws InterruptedException{
@@ -28,51 +28,42 @@ class JobClass {
 		notify();
 		System.out.println("Thread B: After notifiy");
 	}
-}
-
-public class TestWaitNotify {
-
-	JobClass jobClass = new JobClass();
 
 	public void test() {
 		try {
-
-			ExecutorService es = Executors.newCachedThreadPool();
-			es.execute(new Runnable() {
-
+			ExecutorService threadPool = Executors.newCachedThreadPool();
+			threadPool.execute(new Runnable() {
 				@Override
 				public void run() {
 					while (true){
 						try {
-							jobClass.A();
+							A();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 				}
-
 			});
-			es.execute(new Runnable() {
-
+			threadPool.execute(new Runnable() {
 				@Override
 				public void run() {
 					while (true){
 						try {
-							jobClass.B();
+							B();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 				}
-
 			});
+			threadPool.shutdown();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		TestWaitNotify test = new TestWaitNotify();
+		WaitNotify test = new WaitNotify();
 		test.test();
 	}
 

@@ -8,33 +8,20 @@ import java.util.concurrent.TimeUnit;
 
 public class ProducerConsumer {
 	
-	ArrayBlockingQueue<Integer> abq = new ArrayBlockingQueue<Integer>(10);
-	Random random = new Random();
+	private ExecutorService threadPool = Executors.newCachedThreadPool();
+	private ArrayBlockingQueue<Integer> abq = new ArrayBlockingQueue<Integer>(4);
+	private Random random = new Random();
+	private int item = 0;
 	
 	public void test(){
 		try {
-			ExecutorService es = Executors.newFixedThreadPool(2);
-			es.execute(new Runnable() {
+			threadPool.execute(new Runnable() {
 				@Override
 				public void run() {
 					while (true){
 						try {
-							int item = random.nextInt();
-							System.out.println("Producer produces: "+item);
-							TimeUnit.SECONDS.sleep(random.nextInt(5));
-							abq.put(item);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				}
-			});
-			es.execute(new Runnable() {
-				@Override
-				public void run() {
-					while (true){
-						try {
-							System.out.println("Consumer take: "+abq.take());
+							abq.put(item++);
+							System.out.println("offered: #"+item+", current items in queue:"+abq.size());
 							TimeUnit.SECONDS.sleep(random.nextInt(5));
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -42,6 +29,20 @@ public class ProducerConsumer {
 					}
 				}
 			});
+			threadPool.execute(new Runnable() {
+				@Override
+				public void run() {
+					while (true){
+						try {
+							System.out.println("took item #"+abq.take()+", current items in queue:"+abq.size());
+							TimeUnit.SECONDS.sleep(random.nextInt(3));
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			});
+			threadPool.shutdown();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

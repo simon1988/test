@@ -1,13 +1,13 @@
 package thread;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-class RWDictionary {
-	private final Map<String, String> m = new TreeMap<String, String>();
+class ReadWriteLockMap {
+	private final Map<String, String> map = new HashMap<String, String>();
 	private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 	private final Lock r = rwl.readLock();
 	private final Lock w = rwl.writeLock();
@@ -15,7 +15,7 @@ class RWDictionary {
 	public String get(String key) {
 		r.lock();
 		try {
-			return m.get(key);
+			return map.get(key);
 		} finally {
 			r.unlock();
 		}
@@ -24,7 +24,7 @@ class RWDictionary {
 	public Set<String> allKeys() {
 		r.lock();
 		try {
-			return m.keySet();
+			return map.keySet();
 		} finally {
 			r.unlock();
 		}
@@ -33,7 +33,7 @@ class RWDictionary {
 	public String put(String key, String value) {
 		w.lock();
 		try {
-			return m.put(key, value);
+			return map.put(key, value);
 		} finally {
 			w.unlock();
 		}
@@ -42,7 +42,7 @@ class RWDictionary {
 	public void clear() {
 		w.lock();
 		try {
-			m.clear();
+			map.clear();
 		} finally {
 			w.unlock();
 		}
