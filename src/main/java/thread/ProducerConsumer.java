@@ -15,30 +15,24 @@ public class ProducerConsumer {
 	
 	public void test(){
 		try {
-			threadPool.execute(new Runnable() {
-				@Override
-				public void run() {
-					while (true){
-						try {
-							abq.put(item++);
-							System.out.println("offered: #"+item+", current items in queue:"+abq.size());
-							TimeUnit.SECONDS.sleep(random.nextInt(5));
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+			threadPool.execute(() -> {
+				while (true){
+					try {
+						abq.put(item++);
+						System.out.println("offered: #"+item+", current items in queue:"+abq.size());
+						TimeUnit.SECONDS.sleep(random.nextInt(5));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			});
-			threadPool.execute(new Runnable() {
-				@Override
-				public void run() {
-					while (true){
-						try {
-							System.out.println("took item #"+abq.take()+", current items in queue:"+abq.size());
-							TimeUnit.SECONDS.sleep(random.nextInt(3));
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+			threadPool.execute(() -> {
+				while (true){
+					try {
+						System.out.println("took item #"+abq.take()+", current items in queue:"+abq.size());
+						TimeUnit.SECONDS.sleep(random.nextInt(3));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			});

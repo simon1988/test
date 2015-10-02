@@ -32,27 +32,21 @@ public class WaitNotify {
 	public void test() {
 		try {
 			ExecutorService threadPool = Executors.newCachedThreadPool();
-			threadPool.execute(new Runnable() {
-				@Override
-				public void run() {
-					while (true){
-						try {
-							A();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+			threadPool.execute(() -> {
+				while (true){
+					try {
+						A();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			});
-			threadPool.execute(new Runnable() {
-				@Override
-				public void run() {
-					while (true){
-						try {
-							B();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+			threadPool.execute(() -> {
+				while (true){
+					try {
+						B();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
 			});

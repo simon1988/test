@@ -10,16 +10,8 @@ public class TestComparator {
 		list.add(new DoubleString("a","b"));
 		list.add(new DoubleString("c","a"));
 		list.add(new DoubleString("b","c"));
-		Comparator<DoubleString> com1=new Comparator<DoubleString>(){
-			public int compare(DoubleString s1,DoubleString s2){
-				return s1.s1.compareTo(s2.s1);
-			}
-		};
-		Comparator<DoubleString> com2=new Comparator<DoubleString>(){
-			public int compare(DoubleString s1,DoubleString s2){
-				return s1.s2.compareTo(s2.s2);
-			}
-		};
+		Comparator<DoubleString> com1 = (DoubleString s1, DoubleString s2) -> s1.s1.compareTo(s2.s1);
+		Comparator<DoubleString> com2 = (DoubleString s1, DoubleString s2) -> {return s1.s2.compareTo(s2.s2);};
 		Collections.sort(list,com1);
 		System.out.println("sort by com1:");
 		for(DoubleString ds:list)System.out.printf("%s,%s\n", ds.s1,ds.s2);
