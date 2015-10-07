@@ -13,6 +13,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.timeout.ReadTimeoutHandler;
+import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.CharsetUtil;
 
 public class NettyEchoServer {
@@ -34,7 +36,11 @@ public class NettyEchoServer {
              .childHandler(new ChannelInitializer<SocketChannel>() {
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception {
-                     ch.pipeline().addLast(new LineBasedFrameDecoder(64),new StringDecoder(CharsetUtil.ISO_8859_1),new EchoServerHandler());
+                     ch.pipeline().addLast(
+                    		 new ReadTimeoutHandler(30),
+                    		 new LineBasedFrameDecoder(64),
+                    		 new StringDecoder(CharsetUtil.ISO_8859_1),
+                    		 new EchoServerHandler());
                  }
              })
              .option(ChannelOption.SO_BACKLOG, 128)
@@ -81,7 +87,11 @@ public class NettyEchoServer {
 	    @Override
 	    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 	        // Close the connection when an exception is raised.
-	        cause.printStackTrace();
+	    	if(cause instanceof TimeoutException){
+	    		System.out.println("client idle for 30 seconds..disconnect.");
+	    	}else{
+	    		cause.printStackTrace();
+	    	}
 	        ctx.close();
 	    }
 	}
