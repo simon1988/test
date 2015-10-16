@@ -1,4 +1,4 @@
-package socket;
+package net;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -80,8 +80,9 @@ public class NettyEchoServer {
 	    	text=text+"\n";
 	    	ByteBuf encoded = ctx.alloc().buffer(text.length());
 	    	encoded.writeBytes(text.getBytes(CharsetUtil.ISO_8859_1));
-	    	ctx.write(encoded);
-	        ctx.flush();
+	    	// No need to release this ByteBuf cause we don't know when it would be sent
+	    	// Netty will do it for us
+	    	ctx.writeAndFlush(encoded);
 	    }
 
 	    @Override

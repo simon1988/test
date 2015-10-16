@@ -1,4 +1,4 @@
-package thread;
+package concurrent;
 
 import java.util.ArrayList;
 import java.util.List;

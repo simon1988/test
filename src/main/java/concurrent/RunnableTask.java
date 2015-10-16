@@ -1,4 +1,4 @@
-package thread;
+package concurrent;
 
 public class RunnableTask implements Runnable {
 	private int id;

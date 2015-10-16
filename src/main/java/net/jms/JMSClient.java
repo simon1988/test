@@ -1,4 +1,4 @@
-package socket;
+package net.jms;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
