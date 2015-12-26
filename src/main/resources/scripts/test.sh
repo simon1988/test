@@ -19,14 +19,16 @@ bzgrep jy0215 /home/project/logArchive/10.120.118.*/2015/08/25/home/project/qz.f
 bzgrep 1080966279 /home/project/logArchive/10.120.118.7*/2015/08/13/home/project/fa.ms.netease.com/log/silver.log.2015-08-13.bz2
 #tail log
 tail -f /home/project/fa.163.com/dev_API/log/access_debug_log.log
+tail -f /home/project/fanew.ms.netease.com/dev_API/logs/localhost.2015-10-21.log
 #curl set
+curl "http://10.120.45.64:8002/bg/cron/call/LogAnalysisCron.html"
 curl "http://10.120.118.172:8001/bg/cron/call/SyncPhotoWithSgeCron.html"
 curl "http://10.120.118.87:8000/tools/cache/delete?userName=bjtsh@126.com&type=profile"
 curl "http://10.120.118.87:8000/tools/removeTemplateCache.do?templateNames=ftl"
 #rz & sz
 rz -bye
 #memcached
-telnet sess.mem.fa.163.com 11011, info.mem.fa.163.com 11012//64
+telnet sess.mem.fa.163.com 11011, info.mem.fa.163.com 11012//64 profile_
 telnet sess.mem.fa.163.com:22411:33411, info.mem.fa.163.com:22412:33412//87 
 #redis
 redis-cli -h 10.120.42.56 -p 6386 -a 1qazwwwtxtfa//64zhuzhan
@@ -35,11 +37,17 @@ redis-cli -h 10.120.42.56 -p 6386 -a 1qazwwwtxtfa//64zhuzhan
 SENTINEL get-master-addr-by-name master
 #git
 git reset --hard <commit_id>
-git push origin HEAD --force
+git push origin HEAD:<branch> --force
 git checkout -b <branch> <origin/branch>
 git push origin -u(--set-upstream) <branch>
 git push origin :<branch> 把一个空分支push到server上，相当于删除该分支
 git clean -f -d
+git merge --squash <branch> 多次commit合成一个
 git format-patch A..B --> git am *.patch
 git cherry-pick develop/cherry-pick A..B
 #
+./configure --prefix=/usr --libdir=/usr/lib64
+yum install openssl-devel
+export LD_LIBRARY_PATH=~/gg/lib
+export LISTEN_PORT=49000
+nohup bin/gg >log/gg.log 2>&1 &

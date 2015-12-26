@@ -68,7 +68,11 @@ public class NettyEchoServer {
         }
         new NettyEchoServer(port).run();
     }
-    
+/*
+ * Be aware that messages are not released after the {@link #channelRead(ChannelHandlerContext, Object)}
+ * method returns automatically. If you are looking for a {@link ChannelInboundHandler} implementation that
+ * releases the received messages automatically, please see {@link SimpleChannelInboundHandler}.
+ */
 	private class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
 	    @Override
