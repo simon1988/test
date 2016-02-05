@@ -7,6 +7,8 @@ import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
+import org.dom4j.ElementHandler;
+import org.dom4j.ElementPath;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -72,6 +74,36 @@ public class TestDom4j {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	/*    
+	We can process each <ROW> at a time, there is no need to keep all of them in memory at once. dom4j provides a Event Based Mode for this purpose. 
+	We can register an event handler for one or more path expressions. These handlers will then be called on the start and end of each path registered against a particular handler.
+	When the start tag of a path is found, the onStart method of the handler registered to the path is called. When the end tag of a path if found, the onEnd method of the handler registered to that path is called.
+	
+	The onStart and onEnd methods are passed an instance of an ElementPath, which can be used to retrieve the current Element for the given path. 
+	If the handler wishes to "prune" the tree being built in order to save memory use, it can simply call the detach() method of the current Element being processed in the handlers onEnd() method.
+	 */
+	public void processBigXml() throws Exception{
+		// enable pruning mode to call me back as each ROW is complete
+		SAXReader reader = new SAXReader();
+		reader.addHandler( "/ROWSET/ROW", 
+		    new ElementHandler() {
+		        public void onStart(ElementPath path) {
+		        	
+		        }
+				public void onEnd(ElementPath path) {
+		            // process a ROW element
+		            Element row = path.getCurrent();
+		            Element rowSet = row.getParent();
+		            Document document = row.getDocument();
+		            // do something here
+		            row.detach();
+		        }
+		    }
+		);
+
+		Document document = reader.read(new File("book.xml"));
+		// all done
 	}
 	public static void main(String[] args) {
 		TestDom4j instance = new TestDom4j();

@@ -45,6 +45,11 @@
 			<artifactId>netty-all</artifactId>
 			<version>4.0.30.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.8</version>
+		</dependency>
 	</dependencies>
 	<!-- Maven plugin versions are mentioned in order to guarantee the build 
 		reproducibility in the long term -->

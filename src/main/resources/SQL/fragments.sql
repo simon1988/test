@@ -7,8 +7,6 @@ select extract(minute from t.update_time-t.insert_time) from tb_silver_account;
 --get table column number
 select table_name, column_name, column_id from user_tab_columns t where t.TABLE_NAME='IUCSCALL_MPR7_15_USER'
 
---try to update a view
-
 /* column names*/
 select max(substr(SYS_CONNECT_BY_PATH(COLUMN_NAME, ','),2)) col from ( 
 select COLUMN_NAME,column_id from user_tab_columns where table_name='VOICETDR_VPSD_HOUR_USER') 
@@ -37,6 +35,8 @@ when not matched then
   insert (empno) values (t.empno)
 --plan_table
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+--get lock info
+select a.ORACLE_USERNAME,a.OS_USER_NAME,a.LOCKED_MODE,a.SESSION_ID,b.PREV_EXEC_START,c.SQL_TEXT,c.ELAPSED_TIME,c.LOCKED_TOTAL from v$locked_object a left join v$session b on a.SESSION_ID=b.SID left join v$sql c on b.SQL_ID=c.SQL_ID where a.OS_USER_NAME<>'appuser';
 --regexp
 select ename,REGEXP_REPLACE(ename, 'S(\w+)', '\1s') AS "names after regexp" from emp where REGEXP_LIKE (ename, '^S');
 --analytic function
