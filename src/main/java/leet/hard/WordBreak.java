@@ -2,6 +2,8 @@ package leet.hard;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -68,5 +70,8 @@ public class WordBreak {
 	            helper(s,dict,i+1,newItem,res);  
 	        }  
 	    }  
+	}
+	public static void main(String args[]){
+		System.out.println(new WordBreak().wordBreakII("abcdegf", new HashSet<String>(Arrays.asList("deg","abc","f"))));
 	}
 }

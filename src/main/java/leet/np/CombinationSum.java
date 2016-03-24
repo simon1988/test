@@ -29,7 +29,7 @@ public class CombinationSum {
 	    helper(candidates,0,target,new ArrayList<Integer>(),res);  
 	    return res;  
 	}  
-	private void helper(int[] candidates, int start, int target, ArrayList<Integer> item, ArrayList<ArrayList<Integer>> res){  
+	private void helper(int[] candidates, int start, int target, ArrayList<Integer> item, ArrayList<ArrayList<Integer>> res) {  
 	    if(target<0)  
 	        return;  
 	    if(target==0)  
@@ -63,30 +63,28 @@ public class CombinationSum {
 	 * [2, 6] 
 	 * [1, 1, 6] 
 	 */
-	public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates,
-			int target) {
+	public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (candidates == null || candidates.length == 0)
+			return res;
 		Arrays.sort(candidates);
-		dfs(res, 0, candidates, list, target);
+		dfs(candidates, 0, target, new ArrayList<Integer>(), res);
 		return res;
 	}
-	private void dfs(ArrayList<ArrayList<Integer>> res, int start,
-			int[] candidates, ArrayList<Integer> list, int target) {
+
+	private void dfs(int[] candidates, int start, int target, ArrayList<Integer> item,	ArrayList<ArrayList<Integer>> res) {
 		if (target == 0) {
-			res.add(new ArrayList<Integer>(list));
+			res.add(new ArrayList<Integer>(item));
 			return;
 		}
-		int pre = -1;
+		if (target < 0 || start >= candidates.length)
+			return;
 		for (int i = start; i < candidates.length; i++) {
-			if (pre == candidates[i])
+			if (i > start && candidates[i] == candidates[i - 1])
 				continue;
-			if (candidates[i] > target)
-				return;
-			pre = candidates[i];
-			list.add(candidates[i]);
-			dfs(res, i + 1, candidates, list, target - candidates[i]);
-			list.remove(list.size() - 1);
+			item.add(candidates[i]);
+			dfs(candidates, i + 1, target - candidates[i], item, res);
+			item.remove(item.size() - 1);
 		}
 	}
 }

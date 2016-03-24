@@ -13,9 +13,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 
 public class NettyEchoServer {
 	private int port;
@@ -40,6 +42,7 @@ public class NettyEchoServer {
                     		 new ReadTimeoutHandler(30),
                     		 new LineBasedFrameDecoder(64),
                     		 new StringDecoder(CharsetUtil.ISO_8859_1),
+                    		 new StringEncoder(CharsetUtil.ISO_8859_1),
                     		 new EchoServerHandler());
                  }
              })
@@ -77,16 +80,22 @@ public class NettyEchoServer {
 
 	    @Override
 	    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-	    	String text = (String)msg;
-	    	if("exit".equalsIgnoreCase(text)){
-	    		text=text+"!";
+	    	try{
+	    		System.out.println(ctx.channel().eventLoop().inEventLoop());
+		    	String text = (String)msg;
+		    	if("exit".equalsIgnoreCase(text)){
+		    		text=text+"!";
+		    	}
+		    	text=text+"\n";
+		    	// encode manually
+		    	ByteBuf encoded = ctx.alloc().buffer(text.length());
+		    	encoded.writeBytes(text.getBytes(CharsetUtil.ISO_8859_1));
+		    	// No need to release this ByteBuf cause we don't know when it would be sent
+		    	// Netty will do it for us
+		    	ctx.writeAndFlush(text);
+	    	}finally{
+	    		ReferenceCountUtil.release(msg);
 	    	}
-	    	text=text+"\n";
-	    	ByteBuf encoded = ctx.alloc().buffer(text.length());
-	    	encoded.writeBytes(text.getBytes(CharsetUtil.ISO_8859_1));
-	    	// No need to release this ByteBuf cause we don't know when it would be sent
-	    	// Netty will do it for us
-	    	ctx.writeAndFlush(encoded);
 	    }
 
 	    @Override
