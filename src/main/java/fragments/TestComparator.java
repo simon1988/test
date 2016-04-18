@@ -19,7 +19,7 @@ public class TestComparator {
 		System.out.println("sort by com2:");
 		for(DoubleString ds:list)System.out.printf("%s,%s\n", ds.s1,ds.s2);
 		System.out.printf("index for a,b is %d",
-				Collections.binarySearch(list, new DoubleString("a","b"),com2));
+				Collections.binarySearch(list, new DoubleString("a","b"), com2));
 	}
 }
 class DoubleString{

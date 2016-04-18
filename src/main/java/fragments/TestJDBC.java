@@ -7,21 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TestJDBC {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = null;
 		try{
-			Class.forName("com.mysql.jdbc.Driver"); 
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost/test?characterEncoding=GBK","USERNAME","PASSWD");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/test?characterEncoding=GBK","USERNAME","PASSWD");
+			con.setAutoCommit(false);
+			
 			PreparedStatement ps =con.prepareStatement("select * from dics limit 10");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
 				System.out.println(rs.getString(1)+"\t"+rs.getString(2)+"\t"+rs.getString(3));
 			}
 			ps.close();
-			con.close();
+			con.commit();
 		}catch(SQLException e){
+			con.rollback();
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		}finally{
+			con.close();
 		}
 	}
 
